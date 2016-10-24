@@ -26,14 +26,14 @@ should spend some time trying different possibilities)
 
 * Because we are covering tcp clients tomorrow, you won't be able to e2e test your server.
 
-* **But** you still should unit test modules (another reason to decouple managing clients from the server) and for this assignment you  should us `chai` as your assertion library (you can choose either BDD or Assert api - just be consistent).
+* **But** you still should unit test modules (another reason to decouple managing clients from the server) and for this assignment you should use `chai` as your assertion library (you can choose either BDD or Assert api - just be consistent).
 
 ## Bonus
 
 * **2pts** create an event that will rename a user when they type
-`\nick new-name` and broadcast to all users the updated name change.
+`/nick new-name` and broadcast to all users the updated name change.
 
-## Rubruc
+## Rubric
 
 * Chats Correctly: 3pts
 * Code Quality: 2pts
