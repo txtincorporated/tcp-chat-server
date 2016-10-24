@@ -1,0 +1,28 @@
+{
+  "name": "tcp-chat-server",
+  "version": "1.0.0",
+  "description": "simple node tcp chat server",
+  "main": "tcpChatRoom.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/txtincorporated/tcp-chat-server.git"
+  },
+  "keywords": [
+    "tcp",
+    "chat",
+    "server"
+  ],
+  "author": "Nathan P. Keene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/txtincorporated/tcp-chat-server/issues"
+  },
+  "homepage": "https://github.com/txtincorporated/tcp-chat-server#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}
