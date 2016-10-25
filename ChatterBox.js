@@ -13,7 +13,7 @@ module.exports = class ChatterBox {
   //tell requiring functions how to broadcast messages from one chatter to the others
   broadcast(sender, message) {
     //cycle through everyone in the chatterlist and...
-    chatterlist.forEach((val) => {
+    this.chatterlist.forEach((val) => {
       //if they are not the sender...
       if (val !== sender) {
       //send them the chatter's message
@@ -27,5 +27,8 @@ module.exports = class ChatterBox {
     //when chatter emits 'close' event, remove from chatterlist
     const who = this.chatterlist.indexOf(chatter);
     if(who !== -1) this.chatterlist.splice(who, 1);
+    this.chatterlist.forEach(val => {
+      val.write(`${chatter.name} has fled the ChatterBox`);
+    });
   }
 };
