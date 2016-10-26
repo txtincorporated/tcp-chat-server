@@ -30,4 +30,6 @@ server.listen(port, err => {
   else console.log('server listening on ', port);
 });
 
+module.exports = server;
+
 

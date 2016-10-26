@@ -2,9 +2,9 @@
   "name": "tcp-chat-server",
   "version": "1.0.0",
   "description": "simple node tcp chat server",
-  "main": "tcpChatRoom.js",
+  "main": "tcpChatServer.js",
   "scripts": {
-    "test": "return 0"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

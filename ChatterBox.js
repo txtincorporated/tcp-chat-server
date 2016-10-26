@@ -8,6 +8,9 @@ module.exports = class ChatterBox {
   add(chatter) {
     chatter.name = 'Chatter no.' + (this.earlybird++);//Give the new chatter a name
     this.chatterlist.push(chatter);//Add new chatter to the list 
+    this.chatterlist.forEach(val => {
+      val.write(`${chatter.name} has entered the ChatterBox!\n`);
+    });
   }
 
   //tell requiring functions how to broadcast messages from one chatter to the others
@@ -28,7 +31,7 @@ module.exports = class ChatterBox {
     const who = this.chatterlist.indexOf(chatter);
     if(who !== -1) this.chatterlist.splice(who, 1);
     this.chatterlist.forEach(val => {
-      val.write(`${chatter.name} has fled the ChatterBox`);
+      val.write(`${chatter.name} has fled the ChatterBox.\n`);
     });
   }
 };
