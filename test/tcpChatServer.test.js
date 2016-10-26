@@ -40,7 +40,7 @@ describe('tcp chat server setup', () => {
       client1.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        expect(data).match(/^Chatter no.1/);
+        expect(data).match(/^Chatter no.1 has entered/);
         done();
       });
     });
@@ -49,7 +49,7 @@ describe('tcp chat server setup', () => {
       client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.equal(data, 'Chatter no.2 has entered the Chatterbox!\n');
+        expect(data).match(/^Chatter no.2 has entered/);
         done();
       });
     });
