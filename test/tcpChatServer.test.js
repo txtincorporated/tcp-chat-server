@@ -35,49 +35,52 @@ describe('tcp chat server setup', () => {
       });
     });
     //1st user receives message from server
-    let message = 'Chatter no.1 has entered the Chatterbox!\n'
-    it('receives messages originating in server', done => {
+    it('1st user receives messages originating in server', done => {
+      let message = 'Chatter no.1 has entered the Chatterbox!\n';
       client1.once('data', data => {
-        console.log(`Data event detected on port ${port}.`, data.toString);
+        console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.deepEqual(data, message);
+        assert.equal(data, message);
         done();
       });
     });
     //2nd user receives message from server
-    it('receives messages originating in server', done => {
-      client2.once('data', data => {
-        console.log(`Data event detected on port ${port}.`, data.toString);
+    it('2nd user receives messages originating in server', done => {
+      client2.once('data', (data, message) => {
+        console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.equal(data, message);
+        assert.equal(data, 'Chatter no.1 has entered the Chatterbox!\n');
         done();
       });
     });
     //user receives messages from other users
-    it('receives messages originating with other client', done => {
-      client2.once('data', data => {
-        console.log(`Data event detected on port ${port}.`, data.toString);
+    it('2nd user receives messages originating with other client', done => {
+      client2.once('data', (data, message) => {
+        console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.equal(data, message);
+        assert.equal(data, 'Chatter no.1 says -- Hola, amigos.');
         done();
       });
       client1.write('Hola, amigos.');
     });
     //other user disconnects
-    it('receives messages originating with other client', done => {
+    it('2nd user receives messages originating in server', done => {
       client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data.toString);
         //socket.data = message
-        assert.equal(data, message);
+        assert.equal(data, 'Chatter no.1 has fled the ChatterBox.\n');
         done();
       });
       client1.end();
+    });
+    after(done => {
+      //undocumented node feature, client.end takes a callback
+      client2.end(done);
     });
   });
 
   after(done => {
     //undocumented node feature, client.end takes a callback
-    client2.end(done);
     server.close(done);
   });
   

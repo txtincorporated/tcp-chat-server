@@ -51,6 +51,6 @@ describe('ChatterBox module works as expected', () => {
 
   it('correctly notifies remaining chatters who has left', () => {
     //test that chatter2.received === 'chatter no.1 has fled the ChatterBox'
-    assert.equal(chatter2.received, 'Chatter no.1 has fled the ChatterBox');
+    assert.equal(chatter2.received, 'Chatter no.1 has fled the ChatterBox.\n');
   });
 });
