@@ -1,5 +1,6 @@
 const net = require('net');
 const assert = require('chai').assert;
+const expect = require('chai').expect;
 const server = require('../tcpChatServer');
 
 //outer describe
@@ -36,26 +37,25 @@ describe('tcp chat server setup', () => {
     });
     //1st user receives message from server
     it('1st user receives messages originating in server', done => {
-      let message = 'Chatter no.1 has entered the Chatterbox!\n';
       client1.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.equal(data, message);
+        expect(data).match(/^Chatter no.1/);
         done();
       });
     });
     //2nd user receives message from server
     it('2nd user receives messages originating in server', done => {
-      client2.once('data', (data, message) => {
+      client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
-        assert.equal(data, 'Chatter no.1 has entered the Chatterbox!\n');
+        assert.equal(data, 'Chatter no.2 has entered the Chatterbox!\n');
         done();
       });
     });
     //user receives messages from other users
     it('2nd user receives messages originating with other client', done => {
-      client2.once('data', (data, message) => {
+      client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
         assert.equal(data, 'Chatter no.1 says -- Hola, amigos.');
@@ -66,7 +66,7 @@ describe('tcp chat server setup', () => {
     //other user disconnects
     it('2nd user receives messages originating in server', done => {
       client2.once('data', data => {
-        console.log(`Data event detected on port ${port}.`, data.toString);
+        console.log(`Data event detected on port ${port}.`, data);
         //socket.data = message
         assert.equal(data, 'Chatter no.1 has fled the ChatterBox.\n');
         done();
