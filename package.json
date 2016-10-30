@@ -2,7 +2,7 @@
   "name": "tcp-chat-server",
   "version": "1.0.0",
   "description": "simple node tcp chat server",
-  "main": "tcpChatServer.js",
+  "main": "/lib/tcpChatServer.js",
   "scripts": {
     "test": "mocha"
   },

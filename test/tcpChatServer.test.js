@@ -1,17 +1,17 @@
 const net = require('net');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
-const server = require('../tcpChatServer');
+const server = require('../lib/tcpChatServer');
 
-//outer describe
+
 describe('tcp chat server setup', () => {
-  //set up server
+
   const port = 65000;
 
   before(done => {
     server.listen(port, done);
   });
-  //inner describe
+
   describe('basic socket functions', () => {
 
     let client1 = null;
@@ -35,52 +35,53 @@ describe('tcp chat server setup', () => {
         }
       });
     });
-    //1st user receives message from server
+
     it('1st user receives messages originating in server', done => {
       client1.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
-        //socket.data = message
+
         expect(data).match(/^Chatter no.1 has entered/);
         done();
       });
     });
-    //2nd user receives message from server
+
     it('2nd user receives messages originating in server', done => {
       client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
-        //socket.data = message
+
         expect(data).match(/^Chatter no.2 has entered/);
         done();
       });
     });
-    //user receives messages from other users
+
     it('2nd user receives messages originating with other client', done => {
       client2.once('data', data => {
         console.log(`Data event detected on port ${port}.`, data);
-        //socket.data = message
+
         assert.equal(data, 'Chatter no.1 says -- Hola, amigos.');
         done();
       });
       client1.write('Hola, amigos.');
     });
-    //other user disconnects
+
     it('2nd user receives messages originating in server', done => {
       client2.once('data', data => {
+
         console.log(`Data event detected on port ${port}.`, data);
-        //socket.data = message
+
         assert.equal(data, 'Chatter no.1 has fled the ChatterBox.\n');
         done();
       });
       client1.end();
     });
     after(done => {
-      //undocumented node feature, client.end takes a callback
+
       client2.end(done);
     });
   });
 
   after(done => {
-    //undocumented node feature, client.end takes a callback
+
     server.close(done);
   });
   
